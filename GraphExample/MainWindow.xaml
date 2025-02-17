@@ -1,0 +1,49 @@
+﻿<Window x:Class="GraphExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GraphExample"
+        xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="OnWindowLoaded">
+
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+
+        <s:SciChartSurface Grid.Row="1" x:Name="sciChartSurface" s:ThemeManager.Theme="Chrome">
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="LineSeries" Stroke="#FF4083B9"/>
+            </s:SciChartSurface.RenderableSeries>
+
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis Height="60"/>
+            </s:SciChartSurface.XAxis>
+
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Значения" GrowBy="0.1,0.1" AxisAlignment="Left" AutoRange="Always"/>
+            </s:SciChartSurface.YAxis>
+
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup s:MouseManager.MouseEventGroup="MyMouseGroup">
+                    <s:RubberBandXyZoomModifier ExecuteOn="MouseLeftButton" RubberBandStrokeDashArray="2 2"/>
+                    <s:ZoomExtentsModifier ExecuteOn="MouseDoubleClick"/>
+                    <s:ZoomPanModifier ExecuteOn="MouseRightButton" ClipModeX="None" />
+                    <s:RolloverModifier ExecuteOn="MouseMove" ShowTooltipOn="MouseHover"/>
+
+                </s:ModifierGroup>
+
+            </s:SciChartSurface.ChartModifier>
+
+        </s:SciChartSurface>
+
+        <s:SciChartScrollbar Grid.Row="3" Axis="{Binding ElementName=sciChartSurface, Path=XAxis}" Margin="50,0,0,15" s:ThemeManager.Theme="Chrome"/>
+        
+        <Button Name="ButtonSpectrum" Content="Спектр" HorizontalAlignment="Left" Margin="101,0,0,0" VerticalAlignment="Center" Click="OnButtonSpectrumClick"/>
+        <Button Name="ButtonSignal" Content="Сигнал" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" IsEnabled="false" Click="OnButtonSignalClick"/>
+    </Grid>
+</Window>
